@@ -20,7 +20,7 @@ int is_bst(const binary_tree_t *tree, int min, int max)
 }
 
 /**
- * binary_tree_is_avl - Checks if a tree is an AVL tree.
+ * binary_tree_is_avl - Wrapper func Checks if a tree is an AVL tree.
  * @tree: The binary tree to check
  * Return: 1 if valid or 0
  */
@@ -31,9 +31,15 @@ int binary_tree_is_avl(const binary_tree_t *tree)
 	return (avl(tree));
 }
 
+/**
+ * avl - Checks if a tree is an AVL tree.
+ * @tree: The binary tree to check
+ * Return: 1 if valid or 0
+ */
 int avl(const binary_tree_t *tree)
 {
 	int right_height, left_height;
+
 	if (!tree)
 		return (1);
 	if (!is_bst(tree, INT_MIN, INT_MAX))
