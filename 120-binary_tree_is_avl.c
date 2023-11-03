@@ -1,36 +1,64 @@
 #include "binary_trees.h"
 
 /**
-* binary_tree_rotate_left - balances tree by rotating left
-* @tree: tree to balance
-* Return: pointer to tree
-*/
-
+ * is_bst - Checks if a tree is a BST
+ * @tree: The tree to check
+ * @min: The minimum allowed value in the tree
+ * @max: The maximum allowed value in the tree
+ * Return: 1 if BST, or 0
+ */
 int is_bst(const binary_tree_t *tree, int min, int max)
 {
-    if (tree == NULL)
-        return 1;
+	if (tree == NULL)
+		return (1);
 
-    if (tree->n <= min || tree->n >= max)
-        return 0;
+	if (tree->n <= min || tree->n >= max)
+		return (0);
 
-    return is_bst(tree->left, min, tree->n) && is_bst(tree->right, tree->n, max);
+	return (is_bst(tree->left, min, tree->n) &&
+			is_bst(tree->right, tree->n, max));
 }
 
+/**
+ * binary_tree_is_avl - Checks if a tree is an AVL tree.
+ * @tree: The binary tree to check
+ * Return: 1 if valid or 0
+ */
 int binary_tree_is_avl(const binary_tree_t *tree)
 {
-    int left_height, right_height;
-    binary_tree_t *root = (binary_tree_t *)tree;
+	int right_height, left_height;
 
-    if (!is_bst(root, INT_MIN, INT_MAX))
-        return (-1);
-    if (!tree)
-        return (0);
-    left_height = binary_tree_is_avl(tree->left);
-    right_height = binary_tree_is_avl(tree->right);
-    if (left_height == -1 || right_height == -1)
-        return (-1);
-    if (abs(left_height - right_height) > 1)
-        return (-1);
-    return ((left_height > right_height) ? left_height + 1 : right_height + 1);
+	if (tree == NULL)
+		return (1);
+
+	if (!is_bst(tree, INT_MIN, INT_MAX))
+		return (0);
+
+	left_height = binary_tree_height(tree->left);
+	right_height = binary_tree_height(tree->right);
+
+	if (abs(left_height - right_height) > 1)
+		return (0);
+
+	return (binary_tree_is_avl(tree->left) && binary_tree_is_avl(tree->right));
 }
+
+/**
+ * binary_tree_height - Gets the height of a binary tree
+ * @tree: The binary tree
+ * Return: Height of the tree or -1
+ */
+
+int binary_tree_height(const binary_tree_t *tree)
+{
+	int left_height, right_height;
+
+	if (tree == NULL)
+		return (-1);
+
+	left_height = binary_tree_height(tree->left);
+	right_height = binary_tree_height(tree->right);
+
+	return ((left_height > right_height ? left_height : right_height) + 1);
+}
+
