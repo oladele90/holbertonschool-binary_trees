@@ -29,7 +29,7 @@ int binary_tree_is_avl(const binary_tree_t *tree)
 	int right_height, left_height;
 
 	if (tree == NULL)
-		return (0);
+		return (1);
 
 	if (!is_bst(tree, INT_MIN, INT_MAX))
 		return (0);
@@ -40,8 +40,12 @@ int binary_tree_is_avl(const binary_tree_t *tree)
 	if (abs(left_height - right_height) > 1)
 		return (0);
 
-	return (binary_tree_is_avl(tree->left) && binary_tree_is_avl(tree->right));
+	if (!binary_tree_is_avl(tree->left) || !binary_tree_is_avl(tree->right))
+		return (0);
+
+	return (1);
 }
+
 
 /**
  * binary_tree_height - Gets the height of a binary tree
