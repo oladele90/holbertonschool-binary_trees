@@ -14,15 +14,15 @@
  * @left: Pointer to the left child node
  * @right: Pointer to the right child node
  */
-struct binary_tree_s
+typedef struct binary_tree_s
 {
 	int n;
 	struct binary_tree_s *parent;
 	struct binary_tree_s *left;
 	struct binary_tree_s *right;
-};
+} binary_tree_t;
 
-typedef struct binary_tree_s binary_tree_t;
+typedef struct binary_tree_s avl_t;
 
 void binary_tree_print(const binary_tree_t *);
 binary_tree_t *binary_tree_node(binary_tree_t *parent, int value);
@@ -51,5 +51,11 @@ int is_bst(const binary_tree_t *tree, int min, int max);
 int avl(const binary_tree_t *tree);
 binary_tree_t *binary_tree_rotate_right(binary_tree_t *tree);
 int binary_tree_balance(const binary_tree_t *tree);
+avl_t *avl_insert(avl_t **tree, int value);
+avl_t *bst_insert(avl_t *root, avl_t *new, int value);
+int avl_tree_balance(const avl_t *tree);
+int avl_tree_height(const avl_t *tree);
+avl_t *avl_tree_rotate_left(avl_t *tree);
+avl_t *avl_tree_rotate_right(avl_t *tree);
 
 #endif
