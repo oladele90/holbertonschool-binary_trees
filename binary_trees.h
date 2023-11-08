@@ -52,7 +52,7 @@ int avl(const binary_tree_t *tree);
 binary_tree_t *binary_tree_rotate_right(binary_tree_t *tree);
 int binary_tree_balance(const binary_tree_t *tree);
 avl_t *avl_insert(avl_t **tree, int value);
-avl_t *bst_insert(avl_t *root, avl_t *new, int value);
+avl_t *bst_insert(avl_t *root, avl_t *new);
 int avl_tree_balance(const avl_t *tree);
 int avl_tree_height(const avl_t *tree);
 avl_t *avl_tree_rotate_left(avl_t *tree);
