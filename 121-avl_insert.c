@@ -37,7 +37,7 @@ int avl_tree_height(const avl_t *tree)
 }
 
 
-avl_t *bst_insert(avl_t *root, avl_t *new, int value)
+avl_t *bst_insert(avl_t *root, avl_t *new)
 {
     int balance;
 	if(!new)
@@ -49,28 +49,28 @@ avl_t *bst_insert(avl_t *root, avl_t *new, int value)
 	}
 	new->parent = root;
 	if (new->n > root->n)
-		root->right = bst_insert(root->right, new, value);
+		root->right = bst_insert(root->right, new);
 	if (new->n < root->n)
-		root->left = bst_insert(root->left, new, value);
+		root->left = bst_insert(root->left, new);
     balance = avl_tree_balance(root);
 
     /* Left Left Case */
-    if (balance > 1 && value < root->left->n) 
+    if (balance > 1 && new->n < root->left->n) 
         return(avl_tree_rotate_right(root)); 
   
     /* Right Right Case */
-    if (balance < -1 && value > root->right->n) 
+    if (balance < -1 && new->n > root->right->n) 
         return(avl_tree_rotate_left(root)); 
   
     /* Left Right Case */
-    if (balance > 1 && value > root->left->n) 
+    if (balance > 1 && new->n > root->left->n) 
     { 
         root->left = avl_tree_rotate_left(root->left); 
         return(avl_tree_rotate_right(root)); 
     } 
   
     /*Right Left Case*/ 
-    if (balance < -1 && value < root->right->n) 
+    if (balance < -1 && new->n < root->right->n) 
     { 
         root->right = avl_tree_rotate_right(root->right); 
         return(avl_tree_rotate_left(root)); 
@@ -98,7 +98,7 @@ avl_t *avl_insert(avl_t **tree, int value)
         return (*tree);
     }
     else
-        bst_insert(*tree, new_node, value);
+        *tree = bst_insert(*tree, new_node);
     return (new_node);
 }
 
