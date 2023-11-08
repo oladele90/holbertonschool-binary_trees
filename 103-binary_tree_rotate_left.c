@@ -33,23 +33,29 @@ binary_tree_t *binary_tree_rotate_left(binary_tree_t *tree)
 */
 avl_t *avl_tree_rotate_left(avl_t *tree)
 {
-	avl_t *old = NULL, *new = NULL;
+	avl_t *old = NULL, *new = NULL, *temp = NULL;
 
 	if (!tree || !tree->right)
 		return (tree);
 	old = tree;
 	new = tree->right;
-	old->parent = new;
-	if (!new->left)
+	if (old->parent)
 	{
-		new->left = old;
-		new->parent = NULL;
-		return (new);
+		if (old == old->parent->left)
+			old->parent->left = new;
+		else
+			old->parent->right = new;
+		temp = old->parent;
 	}
-	old->right = new->left;
-	old->right->parent = old;
+	old->parent = new;
+	if (new->left)
+	{
+		old->right = new->left;
+		new->left->parent = old;
+	}
+	old->right = NULL;
 	new->left = old;
-	new->parent = NULL;
+	new->parent = temp;
 	return (new);
 }
 

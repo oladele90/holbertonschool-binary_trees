@@ -31,24 +31,30 @@ binary_tree_t *binary_tree_rotate_right(binary_tree_t *tree)
 * @tree: tree to balance
 * Return: pointer to tree
 */
-avl_t *avl_tree_rotate_left(avl_t *tree)
+avl_t *avl_tree_rotate_right(avl_t *tree)
 {
-	avl_t *old = NULL, *new = NULL;
+	avl_t *old = NULL, *new = NULL, *temp = NULL;
 
 	if (!tree || !tree->left)
 		return (tree);
 	old = tree;
 	new = tree->left;
-	old->parent = new;
-	if (!new->right)
+	if (old->parent)
 	{
-		new->right = old;
-		new->parent = NULL;
-		return (new);
+		if (old == old->parent->right)
+			old->parent->right = new;
+		else
+			old->parent->left = new;
+		temp = old->parent;
 	}
-	old->left = new->right;
-	old->left->parent = old;
+	old->parent = new;
+	if (new->right)
+	{
+		old->left = new->right;
+		new->right->parent = old;
+	}
+	old->left = NULL;
 	new->right = old;
-	new->parent = NULL;
+	new->parent = temp;
 	return (new);
 }
