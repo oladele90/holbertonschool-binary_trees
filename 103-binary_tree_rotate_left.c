@@ -53,9 +53,12 @@ avl_t *avl_tree_rotate_left(avl_t *tree)
 		old->right = new->left;
 		new->left->parent = old;
 	}
-	old->right = NULL;
+	else
+		old->right = NULL;
 	new->left = old;
 	new->parent = temp;
+	if (old->right)
+		old->right->parent = old;
 	return (new);
 }
 
