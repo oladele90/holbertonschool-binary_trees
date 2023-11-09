@@ -1,6 +1,24 @@
 #include "binary_trees.h"
 
 /**
+* avl_tree_balance - gets balance of binary tree
+* @tree:  tree to balance
+* Return: int rep of balance factor
+*/
+static int avl_tree_balance(const avl_t *tree)
+{
+	int left_height, right_height;
+
+	if (tree == NULL)
+		return (0);
+
+	left_height = binary_tree_height(tree->left);
+	right_height = binary_tree_height(tree->right);
+
+	return ((left_height - right_height));
+}
+
+/**
  * bst_remove - Removes a node from a binary search tree
  * @root: Pointer to the root of the BST
  * @value: Value to remove from the BST
