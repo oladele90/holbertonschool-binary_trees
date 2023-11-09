@@ -5,7 +5,7 @@
 * @tree:  tree to balance
 * Return: int rep of balance factor
 */
-static int avl_tree_balance(const avl_t *tree)
+int avl_tree_balance(const avl_t *tree)
 {
 	int left_height, right_height;
 
