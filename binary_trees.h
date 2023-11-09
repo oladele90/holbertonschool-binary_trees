@@ -58,5 +58,6 @@ int avl_tree_height(const avl_t *tree);
 avl_t *avl_tree_rotate_left(avl_t *tree);
 avl_t *avl_tree_rotate_right(avl_t *tree);
 avl_t *array_to_avl(int *array, size_t size);
+avl_t *avl_remove(avl_t *root, int value);
 
 #endif
